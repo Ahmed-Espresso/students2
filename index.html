@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة طلاب ذوي الإعاقة السمعية - تسجيل الدخول</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-school"></i>
+                <h1>نظام إدارة طلاب ذوي الإعاقة السمعية</h1>
+            </div>
+            <p class="subtitle">مدرسة الأمل</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <i class="fas fa-user-circle"></i>
+                        <h2>تسجيل الدخول</h2>
+                    </div>
+                    
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i> البريد الإلكتروني
+                            </label>
+                            <input type="email" id="email" placeholder="example@school.edu" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">
+                                <i class="fas fa-lock"></i> كلمة المرور
+                            </label>
+                            <div class="password-input">
+                                <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+                                <button type="button" class="toggle-password" onclick="togglePassword()">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div id="loginError" class="error-message" style="display: none;">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span id="errorText"></span>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>هذا النظام مخصص لإدارة بيانات طلاب ذوي الإعاقة السمعية</p>
+                        <p class="copyright">© 2026 نظام الإدارة التعليمي - جميع الحقوق محفوظة</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>الإصدار 1.0.0 - تطوير فريق مدرسة الأمل</p>
+        </footer>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    
+    <!-- Project Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

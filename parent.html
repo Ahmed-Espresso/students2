@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم ولي الأمر - نظام إدارة طلاب ذوي الإعاقة السمعية</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>جاري تحميل البيانات...</p>
+    </div>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="avatar parent">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="user-info">
+                        <h3 id="parentName">ولي الأمر</h3>
+                        <span class="role-badge parent">ولي أمر</span>
+                    </div>
+                </div>
+                
+                <div class="school-info">
+                    <i class="fas fa-school"></i>
+                    <span>مدرسة الأمل</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <button type="button" class="nav-link active" onclick="showSection('home')">
+                            <i class="fas fa-house"></i>
+                            <span>الصفحة الرئيسية</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button type="button" class="nav-link" onclick="showSection('child-profile')">
+                            <i class="fas fa-child"></i>
+                            <span>ملف ابني/ابنتي</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button type="button" class="nav-link" onclick="showSection('child-grades')">
+                            <i class="fas fa-chart-line"></i>
+                            <span>النتائج الدراسية</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button type="button" class="nav-link" onclick="showSection('follow-up')">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>متابعة طبية</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button type="button" class="nav-link" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>تسجيل الخروج</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button class="sidebar-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="pageTitle">الصفحة الرئيسية</h1>
+                </div>
+                <div class="top-bar-right">
+                    <div class="current-user" id="currentUserEmail"></div>
+                </div>
+            </header>
+
+            <!-- Content Sections -->
+            <div class="content-sections">
+                <!-- Home Section -->
+                <section id="home-section" class="content-section active">
+                    <div class="section-header">
+                        <h2><i class="fas fa-tachometer-alt"></i> نظرة عامة</h2>
+                        <div class="date-display" id="currentDate"></div>
+                    </div>
+                    
+                    <!-- Welcome Message -->
+                    <div class="welcome-card parent">
+                        <div class="welcome-content">
+                            <h3>مرحباً <span id="parentWelcomeName">ولي الأمر</span> 👋</h3>
+                            <p>يمكنك من خلال هذه الصفحة متابعة ابنك/ابنتك دراسياً وطبياً</p>
+                        </div>
+                        <div class="welcome-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Child Information -->
+                    <div class="child-info-card" id="childInfoCard">
+                        <div class="loading-placeholder">
+                            <p><i class="fas fa-spinner fa-spin"></i> جاري تحميل بيانات الطالب...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Child Profile Section -->
+                <section id="child-profile-section" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-child"></i> ملف ابني/ابنتي</h2>
+                    </div>
+                    
+                    <div class="child-profile-full" id="childProfileContent">
+                        <div class="loading-placeholder">
+                            <p><i class="fas fa-spinner fa-spin"></i> جاري تحميل الملف الشخصي...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Child Grades Section -->
+                <section id="child-grades-section" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-chart-line"></i> نتائج ابني/ابنتي</h2>
+                    </div>
+                    
+                    <div class="child-grades-container" id="childGradesContainer">
+                        <div class="loading-placeholder">
+                            <p><i class="fas fa-spinner fa-spin"></i> جاري تحميل النتائج الدراسية...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Follow-up Section -->
+                <section id="follow-up-section" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-calendar-check"></i> متابعة طبية</h2>
+                    </div>
+                    
+                    <div class="follow-up-container" id="follow-upContainer">
+                        <div class="loading-placeholder">
+                            <p><i class="fas fa-spinner fa-spin"></i> جاري تحميل بيانات المتابعة الطبية...</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    
+    <!-- Project Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

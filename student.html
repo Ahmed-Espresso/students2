@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الطالب - نظام إدارة طلاب ذوي الإعاقة السمعية</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>جاري تحميل البيانات...</p>
+    </div>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="avatar student">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="user-info">
+                        <h3 id="studentName">الطالب</h3>
+                        <span class="role-badge student">طالب</span>
+                    </div>
+                </div>
+                
+                <div class="school-info">
+                    <i class="fas fa-school"></i>
+                    <span>مدرسة الأمل</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <button type="button" class="nav-link active" onclick="showSection('home')">
+                            <i class="fas fa-house"></i>
+                            <span>الصفحة الرئيسية</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button type="button" class="nav-link" onclick="showSection('profile')">
+                            <i class="fas fa-user"></i>
+                            <span>الملف الشخصي</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button type="button" class="nav-link" onclick="showSection('grades')">
+                            <i class="fas fa-chart-line"></i>
+                            <span>النتائج الدراسية</span>
+                        </button>
+                    </li>
+
+                    <li>
+    <button type="button" class="nav-link" onclick="showSection('my-teachers')">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <span>معلمي</span>
+    </button>
+</li>
+
+                    <li>
+                        <button type="button" class="nav-link" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>تسجيل الخروج</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button class="sidebar-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="pageTitle">الصفحة الرئيسية</h1>
+                </div>
+                <div class="top-bar-right">
+                    <div class="current-user" id="currentUserEmail"></div>
+                </div>
+            </header>
+            
+            <!-- Content Sections -->
+            <div class="content-sections">
+                <!-- Home Section -->
+                <section id="home-section" class="content-section active">
+                    <div class="section-header">
+                        <h2><i class="fas fa-tachometer-alt"></i> نظرة عامة</h2>
+                        <div class="date-display" id="currentDate"></div>
+                    </div>
+                    
+                    <!-- Welcome Message -->
+                    <div class="welcome-card student">
+                        <div class="welcome-content">
+                            <h3>مرحباً <span id="studentWelcomeName">الطالب</span> 👋</h3>
+                            <p>أنت الآن في لوحة تحكم الطالب يمكنك من هنا الاطلاع على نتائجك الدراسية</p>
+                        </div>
+                        <div class="welcome-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>عدد المواد</h3>
+                                <div class="stat-number" id="subjectsCount">0</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>المتوسط العام</h3>
+                                <div class="stat-number" id="averageGrade">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Profile Section -->
+                <section id="profile-section" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-user"></i> الملف الشخصي</h2>
+                    </div>
+                    
+                    <div class="student-profile-full" id="studentProfileContent">
+                        <div class="profile-card">
+                            <div class="profile-header">
+                                <div class="profile-avatar">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <div class="profile-info">
+                                    <h3 id="profileStudentName">الاسم: جاري التحميل...</h3>
+                                    <p id="profileStudentId">رقم الهوية: جاري التحميل...</p>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">تاريخ الميلاد:</span>
+                                    <span class="detail-value" id="profileBirthDate">جاري التحميل...</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">نوع الإعاقة:</span>
+                                    <span class="detail-value" id="profileDisability">جاري التحميل...</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">الصف الدراسي:</span>
+                                    <span class="detail-value" id="profileGradeLevel">جاري التحميل...</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">ولي الأمر:</span>
+                                    <span class="detail-value" id="profileParent">جاري التحميل...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Grades Section -->
+                <section id="grades-section" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-chart-line"></i> النتائج الدراسية</h2>
+                    </div>
+                    
+                    <div class="grades-container" id="gradesContainer">
+                        <div class="table-responsive">
+                            <table class="data-table" id="studentGradesTable">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>المادة</th>
+                                        <th>الدرجة</th>
+                                        <th>التقدير</th>
+                                        <th>تاريخ الاختبار</th>
+                                        <th>ملاحظات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="studentGradesTableBody">
+                                    <tr>
+                                        <td colspan="6" class="no-data">
+                                            <i class="fas fa-info-circle"></i>
+                                            <span>لا توجد نتائج حتى الآن</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- My Teachers Section -->
+<section id="my-teachers-section" class="content-section">
+    <div class="section-header">
+        <h2><i class="fas fa-chalkboard-teacher"></i> معلمي</h2>
+    </div>
+    
+    <div class="my-teachers-container" id="myTeachersContainer">
+        <div class="loading-placeholder">
+            <p><i class="fas fa-spinner fa-spin"></i> جاري تحميل بيانات المعلمين...</p>
+        </div>
+    </div>
+</section>
+
+
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    
+    <!-- Project Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
